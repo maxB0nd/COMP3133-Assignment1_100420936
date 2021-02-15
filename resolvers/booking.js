@@ -6,7 +6,7 @@ exports.resolvers = {
       return await Booking.find({});
     },
     getBookingByID: async (parent, args) => {
-      return await Booking.findById(args.id);
+      return await Booking.find({ "booking_id": args.booking_id });
     },
     getBookingByHotelID: async (parent, args) => {
       return await Booking.find({ "hotel_id": args.hotel_id });
@@ -36,6 +36,7 @@ exports.resolvers = {
         throw new Error("Booking end cannot be in the past");
       }
       let newBooking = new Booking({
+        booking_id: args.booking_id,
         hotel_id: args.hotel_id,
         booking_date: args.booking_date,
         booking_start: args.booking_start,
@@ -45,16 +46,17 @@ exports.resolvers = {
       return await newBooking.save();
     },
     updateBooking: async (parent, args) => {
-      if (!args.id) {
+      if (!args.booking_id) {
         return JSON.stringify({
           status: false,
           message: "No Booking with this ID is found"
         });
       }
-      return await Booking.findByIdAndUpdate(
-        { _id: args.id },
+      return await Booking.findOneAndUpdate(
+        { "booking_id": args.booking_id },
         {
           $set: {
+            booking_id: args.booking_id,
             hotel_id: args.hotel_id,
             booking_date: args.booking_date,
             booking_start: args.booking_start,
@@ -76,13 +78,13 @@ exports.resolvers = {
       )
     },
     deleteBooking: async (parent, args) => {
-      if (!args.id) {
+      if (!args.booking_id) {
         return JSON.stringify({
           status: false,
           message: "No Booking with this ID is found"
         });
       }
-      return await Booking.findByIdAndDelete(args.id)
+      return await Booking.findOneAndDelete({ booking_id: args.booking_id })
     },
   },
 }

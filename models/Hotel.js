@@ -22,16 +22,16 @@ const HotelSchema = new mongoose.Schema({
     required: [true, 'Please enter city name'],
     trim: true,
   },
-  postal: {
+  postal_code: {
     type: String,
     required: [true, 'Please enter postal code'],
     trim: true,
     uppercase: true,
     validate: {
       validator: function (postal) {
-        return /^\d\D\d\D\d\D$/.test(postal);
+        return /^\D\d\D\d\D\d$/.test(postal);
       },
-      message: props => `${props.value} is not a valid postal cose, postal code should be in foroamt like #A#A#A`
+      message: props => `${props.value} is not a valid postal cose, postal code should be in foroamt like A#A#A#`
     }
   },
   price: {

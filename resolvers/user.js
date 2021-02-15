@@ -18,9 +18,9 @@ exports.resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       const emailExpression = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      const isValidEmail = emailExpression.test(String(email).toLowerCase());
-      const isValidUserName = arg.username && arg.username.length >= 4;
-      const isValidPassword = arg.password && arg.password.length >= 8;
+      const isValidEmail = emailExpression.test(String(args.email).toLowerCase());
+      const isValidUserName = args.username && args.username.length >= 4;
+      const isValidPassword = args.password && args.password.length >= 8;
       if (!isValidEmail) {
         throw new Error("email is not in proper format");
       }
@@ -45,7 +45,7 @@ exports.resolvers = {
           message: "No User with this ID is found"
         });
       }
-      return await User.findByIdAndUpdate(
+      return await User.findOneAndUpdate(
         { user_id: args.user_id },
         {
           $set: {
@@ -75,7 +75,7 @@ exports.resolvers = {
           message: "No User with this ID is found"
         });
       }
-      return await User.findByIdAndDelete(args.user_id)
+      return await User.findOneAndDelete({ "user_id": args.user_id })
     },
   },
 }

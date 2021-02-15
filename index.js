@@ -28,8 +28,10 @@ connect.then((db) => {
   console.log(err);
 });
 
-const typeDefs = UserTypeDefs.typeDefs;
-const resolvers = UserResolvers.resolvers;
+// Update to BookingTypeDefs and BookingResolvers
+// or UserTypeDefs and UserResolvers
+const typeDefs = HotelTypeDefs.typeDefs;
+const resolvers = HotelResolvers.resolvers;
 
 const server = new ApolloServer({
   typeDefs: typeDefs,

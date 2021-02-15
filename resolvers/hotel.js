@@ -5,8 +5,8 @@ exports.resolvers = {
     getHotel: async (parent, args) => {
       return await Hotel.find({});
     },
-    getHotelByID: async (parent, args) => {
-      return await Hotel.findById(args.hotel_id);
+    getHotelByHotelID: async (parent, args) => {
+      return await Hotel.find({ "hotel_id": args.hotel_id });
     },
     getHotelByHotelName: async (parent, args) => {
       return await Hotel.find({ "hotel_name": args.hotel_name });
@@ -18,10 +18,10 @@ exports.resolvers = {
   Mutation: {
     addHotel: async (parent, args) => {
       const emailExpression = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      const postalExpression = /^\d\D\d\D\d\D$/;
-      const isValidEmail = emailExpression.test(String(email).toLowerCase());
-      const isValidPostal = postalExpression.test(String(postal_code).toLowerCase());
-      const isValidPrice = !isNaN(price) && price >= 0;
+      const postalExpression = /^\D\d\D\d\D\d$/;
+      const isValidEmail = emailExpression.test(String(args.email).toLowerCase());
+      const isValidPostal = postalExpression.test(String(args.postal_code).toLowerCase());
+      const isValidPrice = !isNaN(args.price) && args.price >= 0;
       if (!isValidEmail) {
         throw new Error("email is not in proper format");
       }
@@ -50,7 +50,7 @@ exports.resolvers = {
           message: "No Hotel with this ID is found"
         });
       }
-      return await Hotel.findByIdAndUpdate(
+      return await Hotel.findOneAndUpdate(
         { hotel_id: args.hotel_id },
         {
           $set: {
@@ -84,7 +84,7 @@ exports.resolvers = {
           message: "No Hotel with this ID is found"
         });
       }
-      return await Hotel.findByIdAndDelete(args.hotel_id)
+      return await Hotel.findOneAndDelete({ "hotel_id": args.hotel_id })
     },
   },
 }

@@ -1,0 +1,61 @@
+mutation {
+  addBooking(
+    booking_id: 1,
+    hotel_id: 1,
+    booking_date: "2021-02-15",
+    booking_start: "2021-02-20",
+    booking_end: "2021-02-22",
+    user_id: 2
+  ){
+    booking_id
+    hotel_id
+    booking_date
+    booking_start
+    booking_end
+    user_id
+  }
+}
+
+mutation {
+  addBooking(
+    booking_id: 2,
+    hotel_id: 2,
+    booking_date: "2077-02-15",
+    booking_start: "2077-02-20",
+    booking_end: "2077-02-22",
+    user_id: 2
+  ){
+    booking_id
+    hotel_id
+    booking_date
+    booking_start
+    booking_end
+    user_id
+  }
+}
+
+mutation {
+  updateBooking(
+    booking_id: 2,
+    hotel_id: 2,
+    booking_date: "2022-02-15",
+    booking_start: "2022-02-20",
+    booking_end: "2022-02-22",
+    user_id: 2
+  ){
+    booking_ids
+    hotel_id
+    booking_date
+    booking_start
+    booking_end
+    user_id
+  }
+}
+
+mutation {
+  deleteBooking(
+    booking_id: 1,
+  ){
+    booking_id
+  }
+}

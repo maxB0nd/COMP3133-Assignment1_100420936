@@ -1,0 +1,92 @@
+mutation {
+  addHotel(
+    hotel_id: 1,
+    hotel_name:"Hilton Inn",
+    street:"Young Street",
+    city:"Toronto",
+    postal_code: "M1X0Y5",
+    price:150,
+    email:"contact@hilton.com",
+    user_id:2
+  ){
+    hotel_id
+    hotel_name
+    street
+    city
+    postal_code
+    price
+    email
+    user_id
+  }
+}
+
+mutation {
+  addHotel(
+    hotel_id: 2,
+    hotel_name:"My Basement Inn",
+    street:"Some Street",
+    city:"Toronto",
+    postal_code: "M1A0X5",
+    price:950,
+    email:"contact@gmail.com",
+    user_id:2
+  ){
+    hotel_id
+    hotel_name
+    street
+    city
+    postal_code
+    price
+    email
+    user_id
+  }
+}
+
+mutation {
+  updateHotel(
+    hotel_id: 2,
+    hotel_name:"My Basement Inn",
+    street:"Some Street",
+    city:"Toronto",
+    postal_code: "M1A0X5",
+    price:1950,
+    email:"IamGroot@gmail.com",
+    user_id:2
+  ){
+    hotel_id
+    hotel_name
+    street
+    city
+    postal_code
+    price
+    email
+    user_id
+  }
+}
+
+mutation {
+  deleteHotel(
+    hotel_id: 2
+  ){
+    hotel_id
+  }
+}
+
+query{
+  getHotelByHotelName(hotel_name:"Hilton Inn"){
+    hotel_name
+    hotel_id
+  	street
+    postal_code
+    price
+    email
+  }
+}
+
+query{
+  getHotelByCity(city:"Toronto"){
+    hotel_name
+    price
+    email
+  }
+}

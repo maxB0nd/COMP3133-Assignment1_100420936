@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const BookingSchema = new mongoose.Schema({
-  id: {
+  booking_id: {
     type: Number,
     required: true,
     unique: true,

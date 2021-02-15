@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 exports.typeDefs = gql`
   type Booking {
-    id: ID!
+    booking_id: ID!
     hotel_id: ID!
     booking_date: String!
     booking_start: String!
@@ -12,7 +12,8 @@ exports.typeDefs = gql`
 
   type Query {
     getBooking: [Booking]
-    getBookingByUserID (id: ID!): [Booking]
+    getBookingByID (user_id: ID!): Booking
+    getBookingByUserID (user_id: ID!): [Booking]
     getBookingByHotelID (hotel_id: ID!): [Booking]
     getBookingByDate (booking_date: String!): [Booking]
     getBookingByCheckInDate (booking_start: String!): [Booking]
@@ -20,7 +21,7 @@ exports.typeDefs = gql`
 
   type Mutation {
     addBooking(
-      id: ID!
+      booking_id: ID!
       hotel_id: ID!
       booking_date: String!
       booking_start: String!
@@ -29,7 +30,7 @@ exports.typeDefs = gql`
     ): Booking
 
     updateBooking(
-      id: ID!
+      booking_id: ID!
       hotel_id: ID!
       booking_date: String!
       booking_start: String!
@@ -37,6 +38,6 @@ exports.typeDefs = gql`
       user_id: ID!
     ): Booking
 
-    deleteBooking(id: ID!): Booking
+    deleteBooking(booking_id: ID!): Booking
   }
 `;

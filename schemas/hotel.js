@@ -15,7 +15,7 @@ exports.typeDefs = gql`
   type Query {
     getHotel: [Hotel]
     getHotelByHotelID (hotel_id: ID!): Hotel
-    getHotelByHotelname (hotel_name: String!): [Hotel]
+    getHotelByHotelName (hotel_name: String!): [Hotel]
     getHotelByCity (city: String!): [Hotel]
   }
 
