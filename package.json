@@ -1,0 +1,33 @@
+{
+  "name": "100420936_comp3133_assig1",
+  "version": "1.0.0",
+  "description": "Individual Assignment - I",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxB0nd/COMP3133-Assignment1_100420936.git"
+  },
+  "keywords": [
+    "GraphQL",
+    "express",
+    "mongo"
+  ],
+  "author": "Max Bondarenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxB0nd/COMP3133-Assignment1_100420936/issues"
+  },
+  "homepage": "https://github.com/maxB0nd/COMP3133-Assignment1_100420936#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.5.0"
+  }
+}
