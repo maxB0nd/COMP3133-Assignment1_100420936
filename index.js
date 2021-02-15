@@ -1,26 +1,44 @@
 const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { ApolloServer } = require('apollo-server-express');
 
-const schema = buildSchema(
-  `type Query {
-    hello: String
-    greetings(name: String): String
-  }`
-);
+dotenv.config();
+const URL = process.env.MONGODB_URL;
+const PORT = process.env.PORT;
 
-const root = {
-  hello: () => 'Hello World!',
-  greetings: (args) => {
-    return `Hello, ${args.name}`
-  },
-};
+const UserTypeDefs = require('./schemas/user');
+const UserResolvers = require('./resolvers/user');
+const HotelTypeDefs = require('./schemas/hotel');
+const HotelResolvers = require('./resolvers/hotel');
+const BookingTypeDefs = require('./schemas/booking');
+const BookingResolvers = require('./resolvers/booking');
+
+const connect = mongoose.connect(URL,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+connect.then((db) => {
+  console.log('Connected correctly to server!');
+}, (err) => {
+  console.log(err);
+});
+
+const typeDefs = UserTypeDefs.typeDefs;
+const resolvers = UserResolvers.resolvers;
+
+const server = new ApolloServer({
+  typeDefs: typeDefs,
+  resolvers: resolvers
+});
 
 const app = express();
-app.use('/graphql', graphqlHTTP({
-  schema: schema,        //Set schema
-  rootValue: root, //Set resolver
-  graphiql: true             //Client access
-}));
-
-app.listen(4000, () => console.log('Express GraphQL Server Now Running On http://localhost:4000/graphql'));
+app.use(bodyParser.json());
+app.use('*', cors());
+server.applyMiddleware({ app });
+app.listen({ port: process.env.PORT }, () =>
+  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`));
