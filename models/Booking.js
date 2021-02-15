@@ -3,6 +3,7 @@ const BookingSchema = new mongoose.Schema({
   id: {
     type: Number,
     required: true,
+    unique: true,
     min: 0
   },
   hotel_id: {

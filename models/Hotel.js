@@ -3,12 +3,14 @@ const HotelSchema = new mongoose.Schema({
   hotel_id: {
     type: Number,
     required: true,
+    unique: true,
     min: 0
   },
   hotel_name: {
     type: String,
     required: [true, 'Please enter hotel name'],
     trim: true,
+    unique: true,
   },
   street: {
     type: String,
@@ -40,6 +42,7 @@ const HotelSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     validate: {
       validator: function (email) {
         return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(email);

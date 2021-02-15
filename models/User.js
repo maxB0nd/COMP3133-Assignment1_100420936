@@ -3,11 +3,13 @@ const UserSchema = new mongoose.Schema({
   user_id: {
     type: Number,
     required: true,
+    unique: true,
     min: 0
   },
   username: {
     type: String,
     required: true,
+    unique: true,
     minLenght: 4,
     validate: {
       validator: function (username) {
@@ -30,6 +32,7 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     lowercase: true,
     validate: {
       validator: function (email) {
