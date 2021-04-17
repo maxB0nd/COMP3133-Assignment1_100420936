@@ -9,38 +9,30 @@ dotenv.config();
 const URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT;
 
-const UserTypeDefs = require('./schemas/user');
-const UserResolvers = require('./resolvers/user');
-const HotelTypeDefs = require('./schemas/hotel');
-const HotelResolvers = require('./resolvers/hotel');
-const BookingTypeDefs = require('./schemas/booking');
-const BookingResolvers = require('./resolvers/booking');
+const AllTypeDefs = require('./schemas/all');
+const AllResolvers = require('./resolvers/all');
 
-const connect = mongoose.connect(URL,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-
-connect.then((db) => {
-  console.log('Connected correctly to server!');
-}, (err) => {
-  console.log(err);
+const connect = mongoose.connect(URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-// Update to BookingTypeDefs and BookingResolvers
-// or UserTypeDefs and UserResolvers
-const typeDefs = HotelTypeDefs.typeDefs;
-const resolvers = HotelResolvers.resolvers;
+connect.then(
+  (db) => {
+    console.log('Connected correctly to server!');
+  },
+  (err) => {
+    console.log(err);
+  }
+);
 
 const server = new ApolloServer({
-  typeDefs: typeDefs,
-  resolvers: resolvers
+  typeDefs: AllTypeDefs.typeDefs,
+  resolvers: AllResolvers.resolvers,
 });
 
 const app = express();
 app.use(bodyParser.json());
 app.use('*', cors());
 server.applyMiddleware({ app });
-app.listen({ port: process.env.PORT }, () =>
-  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`));
+app.listen({ port: process.env.PORT }, () => console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`));

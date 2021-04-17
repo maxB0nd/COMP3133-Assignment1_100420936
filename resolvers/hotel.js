@@ -6,13 +6,13 @@ exports.resolvers = {
       return await Hotel.find({});
     },
     getHotelByHotelID: async (parent, args) => {
-      return await Hotel.find({ "hotel_id": args.hotel_id });
+      return await Hotel.find({ hotel_id: args.hotel_id });
     },
     getHotelByHotelName: async (parent, args) => {
-      return await Hotel.find({ "hotel_name": args.hotel_name });
+      return await Hotel.find({ hotel_name: args.hotel_name });
     },
     getHotelByCity: async (parent, args) => {
-      return await Hotel.find({ "city": args.city });
+      return await Hotel.find({ city: args.city });
     },
   },
   Mutation: {
@@ -23,13 +23,13 @@ exports.resolvers = {
       const isValidPostal = postalExpression.test(String(args.postal_code).toLowerCase());
       const isValidPrice = !isNaN(args.price) && args.price >= 0;
       if (!isValidEmail) {
-        throw new Error("email is not in proper format");
+        throw new Error('email is not in proper format');
       }
       if (!isValidPostal) {
-        throw new Error("Postal code in not in proper format");
+        throw new Error('Postal code in not in proper format');
       }
       if (!isValidPrice) {
-        throw new Error("Price cannot be negative and should be a number");
+        throw new Error('Price cannot be negative and should be a number');
       }
       let newHotel = new Hotel({
         hotel_id: args.hotel_id,
@@ -40,14 +40,14 @@ exports.resolvers = {
         price: args.price,
         email: args.email,
         user_id: args.user_id,
-      })
+      });
       return await newHotel.save();
     },
     updateHotel: async (parent, args) => {
       if (!args.hotel_id) {
         return JSON.stringify({
           status: false,
-          message: "No Hotel with this ID is found"
+          message: 'No Hotel with this ID is found',
         });
       }
       return await Hotel.findOneAndUpdate(
@@ -62,29 +62,29 @@ exports.resolvers = {
             price: args.price,
             email: args.email,
             user_id: args.user_id,
-          }
+          },
         },
         { new: true },
         (err, Hotel) => {
           if (err) {
             return JSON.stringify({
               status: false,
-              message: "Something went wrong when updating the Hotel"
+              message: 'Something went wrong when updating the Hotel',
             });
           } else {
             return Hotel;
           }
         }
-      )
+      );
     },
     deleteHotel: async (parent, args) => {
       if (!args.hotel_id) {
         return JSON.stringify({
           status: false,
-          message: "No Hotel with this ID is found"
+          message: 'No Hotel with this ID is found',
         });
       }
-      return await Hotel.findOneAndDelete({ "hotel_id": args.hotel_id })
+      return await Hotel.findOneAndDelete({ hotel_id: args.hotel_id });
     },
   },
-}
+};
